@@ -31,8 +31,8 @@ def serving_input_receiver_fn():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
+    parser.add_argument('--train', action='store_true', help='train the model')
     parser.add_argument('--predict', type=str, help='wav file to predict')
-    parser.add_argument('--train', default=False, type=bool, help='train the model')
     parser.add_argument('--batch_size', default=100, type=int, help='batch size')
     parser.add_argument('--train_steps', default=1000, type=int,
                         help='number of training steps')
@@ -47,7 +47,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args(sys.argv[1:])
 
-    print('- loading classifier..')
+    print('- loading classifier')
     classifier = emos_classifier.Classifier()
     
     if args.predict:
@@ -56,6 +56,9 @@ if __name__ == '__main__':
         print('predictions:', predictions)
 
     if args.train:
-        with Halo(text='training data..'):
+        print('- training data..')
+        print('  batch size:', args.batch_size)
+        print('  train steps:', args.train_steps)
+        with Halo():
             classifier.train(batch_size=args.batch_size, 
                             steps=args.train_steps)

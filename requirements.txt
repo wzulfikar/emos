@@ -1,6 +1,6 @@
 tensorflow==1.7.0
 numpy==1.14.2
-PyAudio==0.2.11
 pandas==0.20.3
 scipy==0.18.1
 python_speech_features==0.6
+halo==0.0.12
